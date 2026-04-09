@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabela Periódica</title>
+    <title>Tabela Periódica - Dark Edition</title>
     <style>
-        /* Estilo Dark pq eu gosto KKKK */
+        /* Estilo Dark - Dark Modern Edition */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: #0f172a; /* Azul marinho muito escuro */
@@ -15,6 +15,7 @@
             align-items: center;
             padding: 20px;
             min-height: 100vh;
+            margin: 0;
         }
 
         h1 { 
@@ -25,20 +26,20 @@
 
         p { margin-bottom: 30px; color: #94a3b8; }
 
-        /* Grade da Tabela */
+        /* Grade da Tabela Mamão isso aq*/
         .periodic-table {
             display: grid;
             grid-template-columns: repeat(18, 65px);
             grid-template-rows: repeat(10, 80px); 
             gap: 8px;
-            background: #1e293b; /* Fundo do container levemente mais claro */
+            background: #1e293b; 
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border: 1px solid #334155;
         }
 
-        /* Estilo dos Elementos - No estilo henry */
+        /* Estilo dos Elementos rapaz q coisa dificil*/
         .element {
             background-color: #0f172a;
             border: 1px solid #334155;
@@ -53,7 +54,7 @@
             color: #fff;
         }
 
-        /* Efeito Glow no Hover */
+        /* Efeito Glow no Hover isso aq fica bala*/
         .element:hover {
             transform: translateY(-5px) scale(1.05);
             z-index: 10;
@@ -65,6 +66,9 @@
         .atomic-number { font-size: 0.7rem; position: absolute; top: 4px; left: 6px; opacity: 0.8; }
         .symbol { font-weight: bold; font-size: 1.3rem; margin-bottom: 2px; }
         .name { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; }
+        
+        /* Novo: Estilo para a Massa Atômica feliz seu joão? */
+        .atomic-mass { font-size: 0.5rem; position: absolute; bottom: 4px; right: 6px; opacity: 0.6; }
 
         /* Cores Dark Mode (Cores Neon Vibrantes) */
         .non-metal { color: #4ade80; border-left: 4px solid #4ade80; }
@@ -83,11 +87,12 @@
             padding: 20px;
             background: #1e293b;
             border-radius: 12px;
-            min-width: 400px;
+            min-width: 450px;
             text-align: center;
             border: 1px solid #334155;
             color: #e2e8f0;
             font-size: 1.1rem;
+            transition: border-color 0.3s ease;
         }
         #info-box strong { color: #38bdf8; }
     </style>
@@ -104,126 +109,127 @@
     </div>
 
     <script>
-        // O array de elementos permanece o mesmo do passo anterior (do 1 ao 118)
+        // Array de elementos com a propriedade 'm' (massa atômica) 
         const elements = [
-            { n: 1, s: "H", name: "Hidrogênio", col: 1, row: 1, cat: "non-metal" },
-            { n: 2, s: "He", name: "Hélio", col: 18, row: 1, cat: "noble-gas" },
-            { n: 3, s: "Li", name: "Lítio", col: 1, row: 2, cat: "alkali-metal" },
-            { n: 4, s: "Be", name: "Berílio", col: 2, row: 2, cat: "alkaline-earth" },
-            { n: 5, s: "B", name: "Boro", col: 13, row: 2, cat: "metalloid" },
-            { n: 6, s: "C", name: "Carbono", col: 14, row: 2, cat: "non-metal" },
-            { n: 7, s: "N", name: "Nitrogênio", col: 15, row: 2, cat: "non-metal" },
-            { n: 8, s: "O", name: "Oxigênio", col: 16, row: 2, cat: "non-metal" },
-            { n: 9, s: "F", name: "Flúor", col: 17, row: 2, cat: "non-metal" },
-            { n: 10, s: "Ne", name: "Neônio", col: 18, row: 2, cat: "noble-gas" },
-            { n: 11, s: "Na", name: "Sódio", col: 1, row: 3, cat: "alkali-metal" },
-            { n: 12, s: "Mg", name: "Magnésio", col: 2, row: 3, cat: "alkaline-earth" },
-            { n: 13, s: "Al", name: "Alumínio", col: 13, row: 3, cat: "post-transition" },
-            { n: 14, s: "Si", name: "Silício", col: 14, row: 3, cat: "metalloid" },
-            { n: 15, s: "P", name: "Fósforo", col: 15, row: 3, cat: "non-metal" },
-            { n: 16, s: "S", name: "Enxofre", col: 16, row: 3, cat: "non-metal" },
-            { n: 17, s: "Cl", name: "Cloro", col: 17, row: 3, cat: "non-metal" },
-            { n: 18, s: "Ar", name: "Argônio", col: 18, row: 3, cat: "noble-gas" },
-            { n: 19, s: "K", name: "Potássio", col: 1, row: 4, cat: "alkali-metal" },
-            { n: 20, s: "Ca", name: "Cálcio", col: 2, row: 4, cat: "alkaline-earth" },
-            { n: 21, s: "Sc", name: "Escândio", col: 3, row: 4, cat: "transition" },
-            { n: 22, s: "Ti", name: "Titânio", col: 4, row: 4, cat: "transition" },
-            { n: 23, s: "V", name: "Vanádio", col: 5, row: 4, cat: "transition" },
-            { n: 24, s: "Cr", name: "Cromo", col: 6, row: 4, cat: "transition" },
-            { n: 25, s: "Mn", name: "Manganês", col: 7, row: 4, cat: "transition" },
-            { n: 26, s: "Fe", name: "Ferro", col: 8, row: 4, cat: "transition" },
-            { n: 27, s: "Co", name: "Cobalto", col: 9, row: 4, cat: "transition" },
-            { n: 28, s: "Ni", name: "Níquel", col: 10, row: 4, cat: "transition" },
-            { n: 29, s: "Cu", name: "Cobre", col: 11, row: 4, cat: "transition" },
-            { n: 30, s: "Zn", name: "Zinco", col: 12, row: 4, cat: "transition" },
-            { n: 31, s: "Ga", name: "Gálio", col: 13, row: 4, cat: "post-transition" },
-            { n: 32, s: "Ge", name: "Germânio", col: 14, row: 4, cat: "metalloid" },
-            { n: 33, s: "As", name: "Arsênio", col: 15, row: 4, cat: "metalloid" },
-            { n: 34, s: "Se", name: "Selênio", col: 16, row: 4, cat: "non-metal" },
-            { n: 35, s: "Br", name: "Bromo", col: 17, row: 4, cat: "non-metal" },
-            { n: 36, s: "Kr", name: "Criptônio", col: 18, row: 4, cat: "noble-gas" },
-            { n: 37, s: "Rb", name: "Rubídio", col: 1, row: 5, cat: "alkali-metal" },
-            { n: 38, s: "Sr", name: "Estrôncio", col: 2, row: 5, cat: "alkaline-earth" },
-            { n: 39, s: "Y", name: "Ítrio", col: 3, row: 5, cat: "transition" },
-            { n: 40, s: "Zr", name: "Zircônio", col: 4, row: 5, cat: "transition" },
-            { n: 41, s: "Nb", name: "Nióbio", col: 5, row: 5, cat: "transition" },
-            { n: 42, s: "Mo", name: "Molibdênio", col: 6, row: 5, cat: "transition" },
-            { n: 43, s: "Tc", name: "Tecnécio", col: 7, row: 5, cat: "transition" },
-            { n: 44, s: "Ru", name: "Rutênio", col: 8, row: 5, cat: "transition" },
-            { n: 45, s: "Rh", name: "Ródio", col: 9, row: 5, cat: "transition" },
-            { n: 46, s: "Pd", name: "Paládio", col: 10, row: 5, cat: "transition" },
-            { n: 47, s: "Ag", name: "Prata", col: 11, row: 5, cat: "transition" },
-            { n: 48, s: "Cd", name: "Cádmio", col: 12, row: 5, cat: "transition" },
-            { n: 49, s: "In", name: "Índio", col: 13, row: 5, cat: "post-transition" },
-            { n: 50, s: "Sn", name: "Estanho", col: 14, row: 5, cat: "post-transition" },
-            { n: 51, s: "Sb", name: "Antimônio", col: 15, row: 5, cat: "metalloid" },
-            { n: 52, s: "Te", name: "Telúrio", col: 16, row: 5, cat: "metalloid" },
-            { n: 53, s: "I", name: "Iodo", col: 17, row: 5, cat: "non-metal" },
-            { n: 54, s: "Xe", name: "Xenônio", col: 18, row: 5, cat: "noble-gas" },
-            { n: 55, s: "Cs", name: "Césio", col: 1, row: 6, cat: "alkali-metal" },
-            { n: 56, s: "Ba", name: "Bário", col: 2, row: 6, cat: "alkaline-earth" },
-            { n: 72, s: "Hf", name: "Háfnio", col: 4, row: 6, cat: "transition" },
-            { n: 73, s: "Ta", name: "Tântalo", col: 5, row: 6, cat: "transition" },
-            { n: 74, s: "W", name: "Tungstênio", col: 6, row: 6, cat: "transition" },
-            { n: 75, s: "Re", name: "Rênio", col: 7, row: 6, cat: "transition" },
-            { n: 76, s: "Os", name: "Ósmio", col: 8, row: 6, cat: "transition" },
-            { n: 77, s: "Ir", name: "Irídio", col: 9, row: 6, cat: "transition" },
-            { n: 78, s: "Pt", name: "Platina", col: 10, row: 6, cat: "transition" },
-            { n: 79, s: "Au", name: "Ouro", col: 11, row: 6, cat: "transition" },
-            { n: 80, s: "Hg", name: "Mercúrio", col: 12, row: 6, cat: "transition" },
-            { n: 81, s: "Tl", name: "Tálio", col: 13, row: 6, cat: "post-transition" },
-            { n: 82, s: "Pb", name: "Chumbo", col: 14, row: 6, cat: "post-transition" },
-            { n: 83, s: "Bi", name: "Bismuto", col: 15, row: 6, cat: "post-transition" },
-            { n: 84, s: "Po", name: "Polônio", col: 16, row: 6, cat: "post-transition" },
-            { n: 85, s: "At", name: "Astato", col: 17, row: 6, cat: "metalloid" },
-            { n: 86, s: "Rn", name: "Radônio", col: 18, row: 6, cat: "noble-gas" },
-            { n: 87, s: "Fr", name: "Frâncio", col: 1, row: 7, cat: "alkali-metal" },
-            { n: 88, s: "Ra", name: "Rádio", col: 2, row: 7, cat: "alkaline-earth" },
-            { n: 104, s: "Rf", name: "Rutherfórdio", col: 4, row: 7, cat: "transition" },
-            { n: 105, s: "Db", name: "Dúbnio", col: 5, row: 7, cat: "transition" },
-            { n: 106, s: "Sg", name: "Seabórgio", col: 6, row: 7, cat: "transition" },
-            { n: 107, s: "Bh", name: "Bório", col: 7, row: 7, cat: "transition" },
-            { n: 108, s: "Hs", name: "Hássio", col: 8, row: 7, cat: "transition" },
-            { n: 109, s: "Mt", name: "Meitnério", col: 9, row: 7, cat: "transition" },
-            { n: 110, s: "Ds", name: "Darmstádio", col: 10, row: 7, cat: "transition" },
-            { n: 111, s: "Rg", name: "Roentgênio", col: 11, row: 7, cat: "transition" },
-            { n: 112, s: "Cn", name: "Copernício", col: 12, row: 7, cat: "transition" },
-            { n: 113, s: "Nh", name: "Nipônio", col: 13, row: 7, cat: "post-transition" },
-            { n: 114, s: "Fl", name: "Fleróvio", col: 14, row: 7, cat: "post-transition" },
-            { n: 115, s: "Mc", name: "Moscóvio", col: 15, row: 7, cat: "post-transition" },
-            { n: 116, s: "Lv", name: "Livermório", col: 16, row: 7, cat: "post-transition" },
-            { n: 117, s: "Ts", name: "Tennesso", col: 17, row: 7, cat: "post-transition" },
-            { n: 118, s: "Og", name: "Oganessônio", col: 18, row: 7, cat: "noble-gas" },
-            { n: 57, s: "La", name: "Lantânio", col: 4, row: 9, cat: "lanthanide" },
-            { n: 58, s: "Ce", name: "Cério", col: 5, row: 9, cat: "lanthanide" },
-            { n: 59, s: "Pr", name: "Praseodímio", col: 6, row: 9, cat: "lanthanide" },
-            { n: 60, s: "Nd", name: "Neodímio", col: 7, row: 9, cat: "lanthanide" },
-            { n: 61, s: "Pm", name: "Promécio", col: 8, row: 9, cat: "lanthanide" },
-            { n: 62, s: "Sm", name: "Samário", col: 9, row: 9, cat: "lanthanide" },
-            { n: 63, s: "Eu", name: "Európio", col: 10, row: 9, cat: "lanthanide" },
-            { n: 64, s: "Gd", name: "Gadolínio", col: 11, row: 9, cat: "lanthanide" },
-            { n: 65, s: "Tb", name: "Térbio", col: 12, row: 9, cat: "lanthanide" },
-            { n: 66, s: "Dy", name: "Disprósio", col: 13, row: 9, cat: "lanthanide" },
-            { n: 67, s: "Ho", name: "Hólmio", col: 14, row: 9, cat: "lanthanide" },
-            { n: 68, s: "Er", name: "Érbio", col: 15, row: 9, cat: "lanthanide" },
-            { n: 69, s: "Tm", name: "Túlio", col: 16, row: 9, cat: "lanthanide" },
-            { n: 70, s: "Yb", name: "Itérbio", col: 17, row: 9, cat: "lanthanide" },
-            { n: 71, s: "Lu", name: "Lutécio", col: 18, row: 9, cat: "lanthanide" },
-            { n: 89, s: "Ac", name: "Actínio", col: 4, row: 10, cat: "actinide" },
-            { n: 90, s: "Th", name: "Tório", col: 5, row: 10, cat: "actinide" },
-            { n: 91, s: "Pa", name: "Protactínio", col: 6, row: 10, cat: "actinide" },
-            { n: 92, s: "U", name: "Urânio", col: 7, row: 10, cat: "actinide" },
-            { n: 93, s: "Np", name: "Netúnio", col: 8, row: 10, cat: "actinide" },
-            { n: 94, s: "Pu", name: "Plutônio", col: 9, row: 10, cat: "actinide" },
-            { n: 95, s: "Am", name: "Amerício", col: 10, row: 10, cat: "actinide" },
-            { n: 96, s: "Cm", name: "Cúrio", col: 11, row: 10, cat: "actinide" },
-            { n: 97, s: "Bk", name: "Berquélio", col: 12, row: 10, cat: "actinide" },
-            { n: 98, s: "Cf", name: "Califórnio", col: 13, row: 10, cat: "actinide" },
-            { n: 99, s: "Es", name: "Einstênio", col: 14, row: 10, cat: "actinide" },
-            { n: 100, s: "Fm", name: "Férmio", col: 15, row: 10, cat: "actinide" },
-            { n: 101, s: "Md", name: "Mendelévio", col: 16, row: 10, cat: "actinide" },
-            { n: 102, s: "No", name: "Nobélio", col: 17, row: 10, cat: "actinide" },
-            { n: 103, s: "Lr", name: "Laurêncio", col: 18, row: 10, cat: "actinide" }
+            { n: 1, s: "H", name: "Hidrogênio", m: 1.008, col: 1, row: 1, cat: "non-metal" },
+            { n: 2, s: "He", name: "Hélio", m: 4.0026, col: 18, row: 1, cat: "noble-gas" },
+            { n: 3, s: "Li", name: "Lítio", m: 6.94, col: 1, row: 2, cat: "alkali-metal" },
+            { n: 4, s: "Be", name: "Berílio", m: 9.0122, col: 2, row: 2, cat: "alkaline-earth" },
+            { n: 5, s: "B", name: "Boro", m: 10.81, col: 13, row: 2, cat: "metalloid" },
+            { n: 6, s: "C", name: "Carbono", m: 12.011, col: 14, row: 2, cat: "non-metal" },
+            { n: 7, s: "N", name: "Nitrogênio", m: 14.007, col: 15, row: 2, cat: "non-metal" },
+            { n: 8, s: "O", name: "Oxigênio", m: 15.999, col: 16, row: 2, cat: "non-metal" },
+            { n: 9, s: "F", name: "Flúor", m: 18.998, col: 17, row: 2, cat: "non-metal" },
+            { n: 10, s: "Ne", name: "Neônio", m: 20.180, col: 18, row: 2, cat: "noble-gas" },
+            { n: 11, s: "Na", name: "Sódio", m: 22.990, col: 1, row: 3, cat: "alkali-metal" },
+            { n: 12, s: "Mg", name: "Magnésio", m: 24.305, col: 2, row: 3, cat: "alkaline-earth" },
+            { n: 13, s: "Al", name: "Alumínio", m: 26.982, col: 13, row: 3, cat: "post-transition" },
+            { n: 14, s: "Si", name: "Silício", m: 28.085, col: 14, row: 3, cat: "metalloid" },
+            { n: 15, s: "P", name: "Fósforo", m: 30.974, col: 15, row: 3, cat: "non-metal" },
+            { n: 16, s: "S", name: "Enxofre", m: 32.06, col: 16, row: 3, cat: "non-metal" },
+            { n: 17, s: "Cl", name: "Cloro", m: 35.45, col: 17, row: 3, cat: "non-metal" },
+            { n: 18, s: "Ar", name: "Argônio", m: 39.948, col: 18, row: 3, cat: "noble-gas" },
+            { n: 19, s: "K", name: "Potássio", m: 39.098, col: 1, row: 4, cat: "alkali-metal" },
+            { n: 20, s: "Ca", name: "Cálcio", m: 40.078, col: 2, row: 4, cat: "alkaline-earth" },
+            { n: 21, s: "Sc", name: "Escândio", m: 44.956, col: 3, row: 4, cat: "transition" },
+            { n: 22, s: "Ti", name: "Titânio", m: 47.867, col: 4, row: 4, cat: "transition" },
+            { n: 23, s: "V", name: "Vanádio", m: 50.942, col: 5, row: 4, cat: "transition" },
+            { n: 24, s: "Cr", name: "Cromo", m: 51.996, col: 6, row: 4, cat: "transition" },
+            { n: 25, s: "Mn", name: "Manganês", m: 54.938, col: 7, row: 4, cat: "transition" },
+            { n: 26, s: "Fe", name: "Ferro", m: 55.845, col: 8, row: 4, cat: "transition" },
+            { n: 27, s: "Co", name: "Cobalto", m: 58.933, col: 9, row: 4, cat: "transition" },
+            { n: 28, s: "Ni", name: "Níquel", m: 58.693, col: 10, row: 4, cat: "transition" },
+            { n: 29, s: "Cu", name: "Cobre", m: 63.546, col: 11, row: 4, cat: "transition" },
+            { n: 30, s: "Zn", name: "Zinco", m: 65.38, col: 12, row: 4, cat: "transition" },
+            { n: 31, s: "Ga", name: "Gálio", m: 69.723, col: 13, row: 4, cat: "post-transition" },
+            { n: 32, s: "Ge", name: "Germânio", m: 72.63, col: 14, row: 4, cat: "metalloid" },
+            { n: 33, s: "As", name: "Arsênio", m: 74.922, col: 15, row: 4, cat: "metalloid" },
+            { n: 34, s: "Se", name: "Selênio", m: 78.971, col: 16, row: 4, cat: "non-metal" },
+            { n: 35, s: "Br", name: "Bromo", m: 79.904, col: 17, row: 4, cat: "non-metal" },
+            { n: 36, s: "Kr", name: "Criptônio", m: 83.798, col: 18, row: 4, cat: "noble-gas" },
+            { n: 37, s: "Rb", name: "Rubídio", m: 85.468, col: 1, row: 5, cat: "alkali-metal" },
+            { n: 38, s: "Sr", name: "Estrôncio", m: 87.62, col: 2, row: 5, cat: "alkaline-earth" },
+            { n: 39, s: "Y", name: "Ítrio", m: 88.906, col: 3, row: 5, cat: "transition" },
+            { n: 40, s: "Zr", name: "Zircônio", m: 91.224, col: 4, row: 5, cat: "transition" },
+            { n: 41, s: "Nb", name: "Nióbio", m: 92.906, col: 5, row: 5, cat: "transition" },
+            { n: 42, s: "Mo", name: "Molibdênio", m: 95.95, col: 6, row: 5, cat: "transition" },
+            { n: 43, s: "Tc", name: "Tecnécio", m: 98, col: 7, row: 5, cat: "transition" },
+            { n: 44, s: "Ru", name: "Rutênio", m: 101.07, col: 8, row: 5, cat: "transition" },
+            { n: 45, s: "Rh", name: "Ródio", m: 102.91, col: 9, row: 5, cat: "transition" },
+            { n: 46, s: "Pd", name: "Paládio", m: 106.42, col: 10, row: 5, cat: "transition" },
+            { n: 47, s: "Ag", name: "Prata", m: 107.87, col: 11, row: 5, cat: "transition" },
+            { n: 48, s: "Cd", name: "Cádmio", m: 112.41, col: 12, row: 5, cat: "transition" },
+            { n: 49, s: "In", name: "Índio", m: 114.82, col: 13, row: 5, cat: "post-transition" },
+            { n: 50, s: "Sn", name: "Estanho", m: 118.71, col: 14, row: 5, cat: "post-transition" },
+            { n: 51, s: "Sb", name: "Antimônio", m: 121.76, col: 15, row: 5, cat: "metalloid" },
+            { n: 52, s: "Te", name: "Telúrio", m: 127.60, col: 16, row: 5, cat: "metalloid" },
+            { n: 53, s: "I", name: "Iodo", m: 126.90, col: 17, row: 5, cat: "non-metal" },
+            { n: 54, s: "Xe", name: "Xenônio", m: 131.29, col: 18, row: 5, cat: "noble-gas" },
+            { n: 55, s: "Cs", name: "Césio", m: 132.91, col: 1, row: 6, cat: "alkali-metal" },
+            { n: 56, s: "Ba", name: "Bário", m: 137.33, col: 2, row: 6, cat: "alkaline-earth" },
+            { n: 72, s: "Hf", name: "Háfnio", m: 178.49, col: 4, row: 6, cat: "transition" },
+            { n: 73, s: "Ta", name: "Tântalo", m: 180.95, col: 5, row: 6, cat: "transition" },
+            { n: 74, s: "W", name: "Tungstênio", m: 183.84, col: 6, row: 6, cat: "transition" },
+            { n: 75, s: "Re", name: "Rênio", m: 186.21, col: 7, row: 6, cat: "transition" },
+            { n: 76, s: "Os", name: "Ósmio", m: 190.23, col: 8, row: 6, cat: "transition" },
+            { n: 77, s: "Ir", name: "Irídio", m: 192.22, col: 9, row: 6, cat: "transition" },
+            { n: 78, s: "Pt", name: "Platina", m: 195.08, col: 10, row: 6, cat: "transition" },
+            { n: 79, s: "Au", name: "Ouro", m: 196.97, col: 11, row: 6, cat: "transition" },
+            { n: 80, s: "Hg", name: "Mercúrio", m: 200.59, col: 12, row: 6, cat: "transition" },
+            { n: 81, s: "Tl", name: "Tálio", m: 204.38, col: 13, row: 6, cat: "post-transition" },
+            { n: 82, s: "Pb", name: "Chumbo", m: 207.2, col: 14, row: 6, cat: "post-transition" },
+            { n: 83, s: "Bi", name: "Bismuto", m: 208.98, col: 15, row: 6, cat: "post-transition" },
+            { n: 84, s: "Po", name: "Polônio", m: 209, col: 16, row: 6, cat: "post-transition" },
+            { n: 85, s: "At", name: "Astato", m: 210, col: 17, row: 6, cat: "metalloid" },
+            { n: 86, s: "Rn", name: "Radônio", m: 222, col: 18, row: 6, cat: "noble-gas" },
+            { n: 87, s: "Fr", name: "Frâncio", m: 223, col: 1, row: 7, cat: "alkali-metal" },
+            { n: 88, s: "Ra", name: "Rádio", m: 226, col: 2, row: 7, cat: "alkaline-earth" },
+            { n: 104, s: "Rf", name: "Rutherfórdio", m: 267, col: 4, row: 7, cat: "transition" },
+            { n: 105, s: "Db", name: "Dúbnio", m: 268, col: 5, row: 7, cat: "transition" },
+            { n: 106, s: "Sg", name: "Seabórgio", m: 269, col: 6, row: 7, cat: "transition" },
+            { n: 107, s: "Bh", name: "Bório", m: 270, col: 7, row: 7, cat: "transition" },
+            { n: 108, s: "Hs", name: "Hássio", m: 269, col: 8, row: 7, cat: "transition" },
+            { n: 109, s: "Mt", name: "Meitnério", m: 278, col: 9, row: 7, cat: "transition" },
+            { n: 110, s: "Ds", name: "Darmstádio", m: 281, col: 10, row: 7, cat: "transition" },
+            { n: 111, s: "Rg", name: "Roentgênio", m: 282, col: 11, row: 7, cat: "transition" },
+            { n: 112, s: "Cn", name: "Copernício", m: 285, col: 12, row: 7, cat: "transition" },
+            { n: 113, s: "Nh", name: "Nipônio", m: 286, col: 13, row: 7, cat: "post-transition" },
+            { n: 114, s: "Fl", name: "Fleróvio", m: 289, col: 14, row: 7, cat: "post-transition" },
+            { n: 115, s: "Mc", name: "Moscóvio", m: 290, col: 15, row: 7, cat: "post-transition" },
+            { n: 116, s: "Lv", name: "Livermório", m: 293, col: 16, row: 7, cat: "post-transition" },
+            { n: 117, s: "Ts", name: "Tennesso", m: 294, col: 17, row: 7, cat: "post-transition" },
+            { n: 118, s: "Og", name: "Oganessônio", m: 294, col: 18, row: 7, cat: "noble-gas" },
+            // Elementos de terras raras (Lantanídeos e Actinídeos)
+            { n: 57, s: "La", name: "Lantânio", m: 138.91, col: 4, row: 9, cat: "lanthanide" },
+            { n: 58, s: "Ce", name: "Cério", m: 140.12, col: 5, row: 9, cat: "lanthanide" },
+            { n: 59, s: "Pr", name: "Praseodímio", m: 140.91, col: 6, row: 9, cat: "lanthanide" },
+            { n: 60, s: "Nd", name: "Neodímio", m: 144.24, col: 7, row: 9, cat: "lanthanide" },
+            { n: 61, s: "Pm", name: "Promécio", m: 145, col: 8, row: 9, cat: "lanthanide" },
+            { n: 62, s: "Sm", name: "Samário", m: 150.36, col: 9, row: 9, cat: "lanthanide" },
+            { n: 63, s: "Eu", name: "Európio", m: 151.96, col: 10, row: 9, cat: "lanthanide" },
+            { n: 64, s: "Gd", name: "Gadolínio", m: 157.25, col: 11, row: 9, cat: "lanthanide" },
+            { n: 65, s: "Tb", name: "Térbio", m: 158.93, col: 12, row: 9, cat: "lanthanide" },
+            { n: 66, s: "Dy", name: "Disprósio", m: 162.50, col: 13, row: 9, cat: "lanthanide" },
+            { n: 67, s: "Ho", name: "Hólmio", m: 164.93, col: 14, row: 9, cat: "lanthanide" },
+            { n: 68, s: "Er", name: "Érbio", m: 167.26, col: 15, row: 9, cat: "lanthanide" },
+            { n: 69, s: "Tm", name: "Túlio", m: 168.93, col: 16, row: 9, cat: "lanthanide" },
+            { n: 70, s: "Yb", name: "Itérbio", m: 173.05, col: 17, row: 9, cat: "lanthanide" },
+            { n: 71, s: "Lu", name: "Lutécio", m: 174.97, col: 18, row: 9, cat: "lanthanide" },
+            { n: 89, s: "Ac", name: "Actínio", m: 227, col: 4, row: 10, cat: "actinide" },
+            { n: 90, s: "Th", name: "Tório", m: 232.04, col: 5, row: 10, cat: "actinide" },
+            { n: 91, s: "Pa", name: "Protactínio", m: 231.04, col: 6, row: 10, cat: "actinide" },
+            { n: 92, s: "U", name: "Urânio", m: 238.03, col: 7, row: 10, cat: "actinide" },
+            { n: 93, s: "Np", name: "Netúnio", m: 237, col: 8, row: 10, cat: "actinide" },
+            { n: 94, s: "Pu", name: "Plutônio", m: 244, col: 9, row: 10, cat: "actinide" },
+            { n: 95, s: "Am", name: "Amerício", m: 243, col: 10, row: 10, cat: "actinide" },
+            { n: 96, s: "Cm", name: "Cúrio", m: 247, col: 11, row: 10, cat: "actinide" },
+            { n: 97, s: "Bk", name: "Berquélio", m: 247, col: 12, row: 10, cat: "actinide" },
+            { n: 98, s: "Cf", name: "Califórnio", m: 251, col: 13, row: 10, cat: "actinide" },
+            { n: 99, s: "Es", name: "Einstênio", m: 252, col: 14, row: 10, cat: "actinide" },
+            { n: 100, s: "Fm", name: "Férmio", m: 257, col: 15, row: 10, cat: "actinide" },
+            { n: 101, s: "Md", name: "Mendelévio", m: 258, col: 16, row: 10, cat: "actinide" },
+            { n: 102, s: "No", name: "Nobélio", m: 259, col: 17, row: 10, cat: "actinide" },
+            { n: 103, s: "Lr", name: "Laurêncio", m: 262, col: 18, row: 10, cat: "actinide" }
         ];
 
         const table = document.getElementById('table');
@@ -235,16 +241,21 @@
             div.style.gridColumn = el.col;
             div.style.gridRow = el.row;
 
+            // Inserindo os dados dinamicamente, incluindo a massa (el.m)
             div.innerHTML = `
                 <span class="atomic-number">${el.n}</span>
                 <span class="symbol">${el.s}</span>
                 <span class="name">${el.name}</span>
+                <span class="atomic-mass">${el.m}</span>
             `;
 
             div.onclick = () => {
-                infoBox.innerHTML = `Analisando: <strong>${el.name} (${el.s})</strong> | Nº Atômico: <strong>${el.n}</strong>`;
-                // Muda a cor da borda da info-box para a cor do elemento
-                infoBox.style.borderColor = window.getComputedStyle(div).color;
+                // Atualização do Info-Box com Massa Atômica
+                infoBox.innerHTML = `Analisando: <strong>${el.name} (${el.s})</strong> | Nº: <strong>${el.n}</strong> | Massa: <strong>${el.m} u</strong>`;
+                
+                // Muda a cor da borda da info-box para a cor do elemento selecionado
+                const color = window.getComputedStyle(div).getPropertyValue('color');
+                infoBox.style.borderColor = color;
             };
 
             table.appendChild(div);
