@@ -42,17 +42,23 @@
         p { margin-bottom: 30px; color: #94a3b8; }
 
         /* Grade da Tabela incrivelmente sofri p fazer isso */
-        .periodic-table {
-            display: grid;
-            grid-template-columns: repeat(18, 65px);
-            grid-template-rows: repeat(10, 80px); 
-            gap: 8px;
-            background: #1e293b; 
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #334155;
-        }
+.periodic-table {
+    display: grid;
+
+    grid-template-columns: repeat(18, minmax(60px, 1fr)); 
+    grid-template-rows: repeat(10, 80px); 
+    gap: 8px;
+    background: #1e293b; 
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #334155;
+    
+    /* p funf no mobile */
+    overflow-x: auto; 
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch; /* Scroll suave no iOS */
+}
 
         /* Estilo dos Elementos */
         .element {
@@ -77,6 +83,20 @@
             filter: brightness(1.2);
             border-color: #fff;
         }
+       
+        @media (max-width: 768px) {
+    h1 { font-size: 1.5rem; }
+    p { margin-bottom: 15px; }
+    
+    .periodic-table {
+        padding: 10px;
+        gap: 4px; /* Diminui o espaçamento para ganhar espaço */
+    }
+
+    /* Ajusta o tamanho interno dos elementos para caberem melhor */
+    .symbol { font-size: 1.1rem; }
+    .name { font-size: 0.45rem; }
+}
 
         .atomic-number { font-size: 0.7rem; position: absolute; top: 4px; left: 6px; opacity: 0.8; }
         .symbol { font-weight: bold; font-size: 1.3rem; margin-bottom: 2px; }
@@ -96,19 +116,20 @@
         .lanthanide { color: #f472b6; border-left: 4px solid #f472b6; }
         .actinide { color: #fb923c; border-left: 4px solid #fb923c; }
         
-        /* Info Box Moderna */
-        #info-box {
-            margin-top: 30px;
-            padding: 20px;
-            background: #1e293b;
-            border-radius: 12px;
-            min-width: 450px;
-            text-align: center;
-            border: 1px solid #334155;
-            color: #e2e8f0;
-            font-size: 1.1rem;
-            transition: border-color 0.3s ease;
-        }
+        /* Info Box Moderna e compativel com mobile */
+    #info-box {
+    margin-top: 30px;
+    padding: 20px;
+    background: #1e293b;
+    border-radius: 12px;
+    width: 100%; /* Ocupa a largura disponivel */
+    max-width: 600px;
+    box-sizing: border-box;
+    text-align: center;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    font-size: 1.1rem;
+}
         #info-box strong { color: #38bdf8; }
     </style>
 </head>
